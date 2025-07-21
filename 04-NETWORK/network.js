@@ -1,3 +1,9 @@
+//this will download version 5 of mongodb image
+docker pull mongo:5.0.1
+
+//this will download version 5 of mongo-express
+docker pull mongo-express
+
 // this will create a docker network
 docker network create mongo
 
@@ -16,11 +22,10 @@ docker run --name mongo -d --network mongo -p 27017:27017 \
 -e MONGO_INITDB_ROOT_USERNAME=root \
 -e MONGO_INITDB_ROOT_PASSWORD=secret mongo:5.0.1
 
-// this will the logs of your container
-docker logs mongo
-
 // this will log you into the mongdb database from inside a container
 mongosh -u root -p secret --authenticationDatabase admin
+
+
 
 // this will run a mongo-express container while attaching it to a network
 docker run --name mongo-express --network mongo -d -p 8081:8081 \
@@ -31,6 +36,8 @@ docker run --name mongo-express --network mongo -d -p 8081:8081 \
 -e ME_CONFIG_BASICAUTH_PASSWORD=secret \
 -e ME_CONFIG_MONGODB_SERVER=mongo mongo-express
 
+// this will the logs of your container
+docker logs mongo
 
 
 docker network connect mongo user-api 
