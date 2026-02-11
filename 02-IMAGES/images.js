@@ -32,7 +32,8 @@ docker image load -i ./backup/my-alpine.tar
 docker build -t fancy-portfolio .
 
 // this will run a container from your custom image
-docker run --name new-portfolio -d -p 8080:80 fancy-portfolio            
+docker run --name new-portfolio -d -p 8080:80 fancy-portfolio
+docker run --name wealth-container -d  -p 8080:8080 customer-app          
 
 // login to the container and check the files out
 docker exec -it dashboard sh
