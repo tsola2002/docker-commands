@@ -17,6 +17,26 @@ docker pull nginx
 // this will inspect a docker image
 docker image inspect nginx
 
+// this will interactively create an image and log into the container environment
+docker container run -it \
+--name sample alpine:3.17 sh
+
+// this will update the linux operating system and install curl tool
+apk update && apk add curl
+
+// we are using the curl tool to return the header response of google.com
+curl -I https://google.com
+
+// this will list and search through the images for sample
+docker container ls -a | grep sample
+
+// this will show changes that have been made in our container concerning our base image
+docker container diff sample
+
+// this will generate a new image from the base image
+docker container commit sample my-alpine
+
+
 // this will build a custom docker image
 docker build -t fancy-portfolio .
 
@@ -25,12 +45,6 @@ docker run --name new-portfolio -d -p 8080:80 fancy-portfolio
 docker run --name wealth-container -d  -p 8080:8080 customer-app          
 
 
-// this will interactively create an image
-docker container run -it \
---name sample alpine:3.17 sh
-
-// this will show changes that have been made in our container concerning our base image
-docker container diff sample
 
 // this will export an existing image
 docker image save -o ./backup/my-alpine.tar my-alpine
