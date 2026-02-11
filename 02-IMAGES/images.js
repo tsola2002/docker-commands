@@ -1,3 +1,5 @@
+//install docker extension
+
 // this will access the documentation of the command 
 docker image --help
 
@@ -15,6 +17,14 @@ docker pull nginx
 // this will inspect a docker image
 docker image inspect nginx
 
+// this will build a custom docker image
+docker build -t fancy-portfolio .
+
+// this will run a container from your custom image
+docker run --name new-portfolio -d -p 8080:80 fancy-portfolio
+docker run --name wealth-container -d  -p 8080:8080 customer-app          
+
+
 // this will interactively create an image
 docker container run -it \
 --name sample alpine:3.17 sh
@@ -28,12 +38,6 @@ docker image save -o ./backup/my-alpine.tar my-alpine
 // this import an existing image 
 docker image load -i ./backup/my-alpine.tar
 
-// this will build a custom docker image
-docker build -t fancy-portfolio .
-
-// this will run a container from your custom image
-docker run --name new-portfolio -d -p 8080:80 fancy-portfolio
-docker run --name wealth-container -d  -p 8080:8080 customer-app          
 
 // login to the container and check the files out
 docker exec -it dashboard sh
