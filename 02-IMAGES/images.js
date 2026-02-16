@@ -40,11 +40,17 @@ docker container commit sample my-alpine
 // this will build a custom docker image
 docker build -t fancy-portfolio .
 
+docker image ls
+
 // this will run a container from your custom image
 docker run --name new-portfolio -d -p 8080:80 fancy-portfolio
 docker run --name wealth-container -d  -p 8080:8080 customer-app          
 
+// setting up tags that will be pushed to docker hub
+docker tag omatsola-portfolio:latest tsola2002/omatsolas-nginx-repo:latest
 
+// this will push our image to docker hub
+docker push tsola2002/omatsolas-nginx-repo:latest
 
 // this will export an existing image
 docker image save -o ./backup/my-alpine.tar my-alpine
@@ -62,11 +68,9 @@ docker image save -o ./backup/my-alpine.tar my-alpine
 // this will import an existing image from a backup tar file
 docker image load -i ./backup/backup-portfolio.tar
 
-// setting up tags that will be pushed to docker hub
-docker tag omatsola-portfolio:latest tsola2002/omatsolas-nginx-repo:latest
 
-// this will push our image to docker hub
-docker push tsola2002/omatsolas-nginx-repo:latest
+
+
 
 // this run someone elses image
 docker run --name sample-container -d -p 8080:80 tsola2002/omatsolas-nginx-repo:latest
