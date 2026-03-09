@@ -4,6 +4,7 @@ node server.js
 // STEP 2 BUILD 2 IMAGES FOR THE 2 MICROSERVICES
 docker image build -t node-customer-service:latest .
 docker image build -t node-order-service:latest .
+docker image build -t node-frontend:latest .
 
 // STEP 3 RUN THE 2 IMAGES AS DOCKER CONTAINERS
 docker run --name node-customer-service -d -p 8080:8080 customer-service:latest
