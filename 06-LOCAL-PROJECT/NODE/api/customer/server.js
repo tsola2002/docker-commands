@@ -26,6 +26,7 @@ router.get('/api/v1/customer', function(req, res) {
     res.json(customers);   
 });
 
+// ENDPOINT TO DISPLAY ORDERS THAT A CUSTOMER HAS MADE
 router.get('/api/v1/customer/:id/orders', function(req, res) {
     const url = `http://${ORDER_SERVICE}/api/v1/order/customer/${req.params.id}`
     axios.get(url)

@@ -1,5 +1,6 @@
 // STEP 1 TEST ALL 3 API ENDPOINTS
 node server.js
+npm run start
 
 // STEP 2 BUILD 2 IMAGES FOR THE 2 MICROSERVICES
 docker image build -t node-customer-service:latest .
