@@ -38,6 +38,15 @@ docker container commit sample my-alpine
 // this will build a custom docker image
 docker build -t oyin-image .
 
+// this will rebuild the image with a new tag
+docker build -t oyin-image:red-website .
+
+// this attach a new tag that will be pushed to docker hub
+docker tag oyin-image:red-website tsola2002/omatsolas-nginx-repo:red-website
+
+// this will push our image to docker hub
+docker push tsola2002/omatsolas-nginx-repo:latest
+
 docker image ls
 
 // this will run a container from your custom image
