@@ -6,39 +6,37 @@ docker image --help
 // this will display all images
 docker image ls
 
+// this will download an image from docker hub registry
+docker pull nginx
+
+
 // this will delete an image from your docker instance
 docker image rm nginx
 docker image rm -f nginx
 docker rmi nginx
 
-// this will download an image from docker hub registry
-docker pull nginx
+// this will interactively create an image and log into the 
+// container environment
+docker run -it --name sample alpine:3.17 sh
 
 // this will inspect a docker image
 docker image inspect nginx
 
-// this will interactively create an image and log into the container environment
-docker container run -it \
---name sample alpine:3.17 sh
-
 // this will update the linux operating system and install curl tool
 apk update && apk add curl
-
 // we are using the curl tool to return the header response of google.com
 curl -I https://google.com
 
 // this will list and search through the images for sample
 docker container ls -a | grep sample
-
 // this will show changes that have been made in our container concerning our base image
 docker container diff sample
-
 // this will generate a new image from the base image
 docker container commit sample my-alpine
 
 
 // this will build a custom docker image
-docker build -t fancy-portfolio .
+docker build -t oyin-image .
 
 docker image ls
 
@@ -47,7 +45,8 @@ docker run --name new-portfolio -d -p 8080:80 fancy-portfolio
 docker run --name wealth-container -d  -p 8080:8080 customer-app          
 
 // setting up tags that will be pushed to docker hub
-docker tag omatsola-portfolio:latest tsola2002/omatsolas-nginx-repo:latest
+docker tag oyin-image:latest tsola2002/omatsolas-nginx-repo:latest
+docker image ls
 
 // this will push our image to docker hub
 docker push tsola2002/omatsolas-nginx-repo:latest
