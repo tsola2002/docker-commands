@@ -1,9 +1,43 @@
-// run a container while issuing a command to it to create and display contents of a file
-docker run bash bash -c "echo foo > bar.txt && cat bar.txt" 
-
-
+// login to an ubuntu container
+docker run -it --name  test-container ubuntu bash
+// create file and populate file with content
+echo "Hello From Ubuntu" > file.txt
+// list files and folders
+ls
+// display content
+cat file.txt
+// logout of the conainer
+exit
+// delete the container
+docker rm test-container
+//
+docker run -it ubuntu bash
+ls
 // view the contents of the same container after logging into the container
 docker run bash bash -c "cat bar.txt" 
+
+// MAKE OUR CONTAINER STATEFUL
+docker volume create mydata
+docker volume ls
+
+// RUN A CONTAINER AND MOUNT A DOCKER VOLUME
+docker run -it -v mydata:/data ubuntu bash
+// create file and populate file with content
+echo "Hello From Ubuntu" > /data/file.txt
+// list files and folders
+ls
+// display content
+cat /data/file.txt
+// logout of the conainer
+exit
+
+docker rm <container_id>
+
+// RUN A NEW CONTAINER
+docker run -it -v mydata:/data ubuntu bash
+
+//
+cat /data/file.txt
 
 
 // BIND MOUNT
