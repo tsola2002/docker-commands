@@ -40,11 +40,26 @@ docker run -it -v mydata:/data ubuntu bash
 cat /data/file.txt
 
 
-// BIND MOUNT
+// BIND MOUNT OR HOST VOLUMES
 // GO TO DESKTOP FOLDER AND CREATE A BIND MOUNT FOLDER
-mkdir bind-mount
-docker run -v $PWD
-echo $PWD
+docker run -it --name alpine-test \
+-v $(pwd)/host-data:/data \
+alpine:latest sh
+
+// CREATE A FILE INSIDE THE CONTAINER
+echo "Hello From Alpine" > /data/test.txt
+// VERIFY FILE INSIDE CONTAINER
+cat /data/test.txt
+
+// LOGOUT
+exit
+// VERIFY FILE CONTENT
+cat host-data/test.txt
+
+
+
+
+
 
 docker run -v $PWD:/tmp bash \
 bash -c "echo foo > /tmp/bar.txt && cat /tmp/bar.txt"
@@ -56,9 +71,11 @@ ls
 cat bar.txt
 
 // run a new container and check if the file is still present
-docker run -v $PWD:/tmp bash \
+docker run -v $(PWD):/tmp bash \
 bash -c "cat /tmp/bar.txt"
 
-//mount a bootstrap website to a running container via volumes
+// mount a bootstrap website to a running container via volumes
 docker run --name dashboard \
--v "$PWD:/usr/share/nginx/html" -d -p 8080:80 nginx
+-v "`pwd -W`:/usr/share/nginx/html" -d -p 8080:80 nginx
+
+docker ps
