@@ -17,6 +17,7 @@ C3KP9SFFB
 // 🚀 STEP 6: CREATE RESOURCE GROUP
 az login
 az group create --name microservices-rg --location eastus
+az group create --name node-microservices-rg --location eastus
 
 // STEP 7 Create Container App Environment
 az containerapp env create \
@@ -24,8 +25,31 @@ az containerapp env create \
   --resource-group microservices-rg \
   --location eastus
 
-// STEP 8 CREATE ORDER CONTAINER
-  az containerapp create \
+az containerapp env create \
+  --name node-microservices-env \
+  --resource-group node-microservices-rg \
+  --location eastus
+
+// STEP 8 CREATE CUSTOMER CONTAINER  
+az containerapp create \
+  --name customer-service \
+  --resource-group microservices-rg \
+  --environment node-microservices-env \
+  --image tsola2002/node-customer-service:latest \
+  --target-port 8080 \
+  --env-vars ORDER_SERVICE_URL=http://order-service:8081   
+
+az containerapp create \
+  --name node-customer-service \
+  --resource-group node-microservices-rg \
+  --environment node-microservices-env \
+  --image tsola2002/node-customer-service:latest \
+  --target-port 8080 \
+  --env-vars ORDER_SERVICE_URL=http://order-service:8081
+
+
+// STEP 9 CREATE ORDER CONTAINER
+az containerapp create \
   --name order-service \
   --resource-group microservices-rg \
   --environment microservices-env \
@@ -33,20 +57,27 @@ az containerapp env create \
   --target-port 8081 \
   --ingress external
 
-// STEP 9 CREATE CUSTOMER CONTAINER
-az containerapp create \
-  --name customer-service \
-  --resource-group microservices-rg \
-  --environment microservices-env \
-  --image tsola2002/node-customer-service:latest \
-  --target-port 8080 \
-  --env-vars ORDER_SERVICE_URL=http://order-service:8081
+  az containerapp create \
+  --name node-order-service \
+  --resource-group node-microservices-rg \
+  --environment node-microservices-env \
+  --image tsola2002/node-order-service:latest \
+  --target-port 8081 \
+  --ingress external
 
 // STEP 10 CREATE REACT CONTAINER 
 az containerapp create \
   --name react-frontend \
   --resource-group microservices-rg \
   --environment microservices-env \
+  --image tsola2002/node-frontend:latest \
+  --target-port 80 \
+  --ingress external
+
+az containerapp create \
+  --name node-react-frontend \
+  --resource-group node-microservices-rg \
+  --environment node-microservices-env \
   --image tsola2002/node-frontend:latest \
   --target-port 80 \
   --ingress external
