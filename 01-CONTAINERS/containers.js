@@ -1,23 +1,16 @@
-// this will check whether your docker CLI is enabled
-docker --version
-
-// this show you the docker documetation
-docker --help
-
-// this will list flags can you can attach to your docker command(documentation)
-docker
-
-// this will display all containers
+// this will display all containers(whether they're running or not)
 docker ps -a
-docker container ls --all
+docker container ls--all
 
-// this will display the current running containers
+// this will display only running containers
 docker ps
 docker container ls
 
 // this will run a docker container
 docker run -d -p 80:80 docker/getting-started
 docker run -d -p 80:80 -p 3000:80 -p 8081:80 docker/getting-started
+
+
 
 // this will stop a docker container
 docker stop 3ae049fd
@@ -36,6 +29,8 @@ docker start 3ae049fd
 // this will delete a docker container
 docker rm 3ae049fd
 docker rm affectionate_williams
+
+// this will force-delete a container
 docker rm -f 3ae049fd
 
 
@@ -43,6 +38,7 @@ docker rm -f 3ae049fd
 docker container inspect affectionate_williams
 docker container inspect 3ae049fd
 
+//this will log yo into a container
 // this will switch to the interactive linux shell inside of your container
 docker exec -it 636a99c5b5 sh
 docker exec -it suspicious_bash sh
@@ -50,7 +46,7 @@ docker exec -it suspicious_bash sh
 // list all files and folders inside a container
 ls
 
-// this will logout of the container
+// this will logout of a running container
 exit
 ctrl + d
 
