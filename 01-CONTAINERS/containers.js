@@ -11,6 +11,10 @@ docker run -d -p 80:80 docker/getting-started
 docker run -d -p 80:80 -p 3000:80 -p 8081:80 docker/getting-started
 
 
+// this will inspect a container
+docker inspect 3ae049fd
+docker inspect affectionate_williams
+
 
 // this will stop a docker container
 docker stop 3ae049fd
@@ -52,7 +56,9 @@ ctrl + d
 
 // do ls after you log in
 docker logs 4800f90e576b
+docker container logs 4800f90e576b
 docker logs suspicious_bash
+docker container logs suspicious_bash
 
 // generates a sample template for generating docker ps better
 export FORMAT="ID\t{{.ID}}\nNAME\t{{.Names}}\nIMAGE\t{{.Image}}\nPORTS\t{{.Ports}}\nCOMMAND\T{{.Command}}\nCREATED\t{{.CreatedAt}}\nSTATUS\t{{.Status}}\n"
